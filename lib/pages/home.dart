@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/todo_model.dart';
 import 'database.dart';
@@ -34,6 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (FirebaseAuth.instance.currentUser == null) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Todo App'),
+        ),
+        body: const Center(
+          child: Text('You are not logged in'),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -65,47 +77,46 @@ class _MyHomePageState extends State<MyHomePage> {
                 return Column(
                   children: [
                     ListTile(
-                      title: Text(todo.taskTitle),
-                      subtitle: Text(todo.taskDescription,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontStyle: FontStyle.italic,
-                          )),
-                      leading: Checkbox(
-                        value: todo.isCompleted == 1,
-                        onChanged: (bool? value) async {
-                          // back-end
-                          await _db.update(
-                            Todo(
-                                id: todo.id,
-                                taskTitle: todo.taskTitle,
-                                taskDescription: todo.taskDescription,
-                                isCompleted: todo.isCompleted == 0 ? 1 : 0),
-                          );
-                          // front-end
-                          setState(
-                            () {
-                              todos[index] = Todo(
+                        title: Text(todo.taskTitle),
+                        subtitle: Text(todo.taskDescription,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontStyle: FontStyle.italic,
+                            )),
+                        leading: Checkbox(
+                          value: todo.isCompleted == 1,
+                          onChanged: (bool? value) async {
+                            // back-end
+                            await _db.update(
+                              Todo(
                                   id: todo.id,
                                   taskTitle: todo.taskTitle,
                                   taskDescription: todo.taskDescription,
-                                  isCompleted: todo.isCompleted == 0 ? 1 : 0);
-                            },
-                          );
-                        },
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () async {
-                          // back-end
-                          await _db.delete(todo.id!);
-                          // front-end
-                          setState(() {
-                            todos.removeAt(index);
-                          });
-                        },
-                      )
-                    ),
+                                  isCompleted: todo.isCompleted == 0 ? 1 : 0),
+                            );
+                            // front-end
+                            setState(
+                              () {
+                                todos[index] = Todo(
+                                    id: todo.id,
+                                    taskTitle: todo.taskTitle,
+                                    taskDescription: todo.taskDescription,
+                                    isCompleted: todo.isCompleted == 0 ? 1 : 0);
+                              },
+                            );
+                          },
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () async {
+                            // back-end
+                            await _db.delete(todo.id!);
+                            // front-end
+                            setState(() {
+                              todos.removeAt(index);
+                            });
+                          },
+                        )),
                     const Divider(),
                   ],
                 );

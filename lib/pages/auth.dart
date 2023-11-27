@@ -49,7 +49,7 @@ class _AuthPageState extends State<AuthPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Authentification'),
+        title: const Text('S\'inscrire'),
       ),
       body: SafeArea(
         child: Padding(
@@ -130,7 +130,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Authentification'),
+        title: const Text('Se connecter'),
       ),
       body: SafeArea(
         child: Padding(
