@@ -112,15 +112,7 @@ class _SignInPageState extends State<SignInPage> {
 
       // Utilisateur connecté avec succès
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        const SnackBar(
-          content: Text('No user found for that email.'),
-        );
-      } else if (e.code == 'wrong-password') {
-        const SnackBar(
-          content: Text('Wrong password provided for that user.'),
-        );
-      }
+      throw Exception(e);
     }
   }
 
