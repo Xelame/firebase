@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase/pages/signin.dart';
 import 'package:flutter/material.dart';
 import '../models/todo_model.dart';
 import 'database.dart';
@@ -35,21 +35,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (FirebaseAuth.instance.currentUser == null) {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Todo App'),
-        ),
-        body: const Center(
-          child: Text('You are not logged in'),
-        ),
-      );
-    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Todo App'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.login),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SignInPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: FutureBuilder<List<Todo>>(

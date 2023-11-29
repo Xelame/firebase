@@ -1,8 +1,7 @@
+import 'package:firebase/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase_options.dart';
-import 'package:firebase/pages/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +38,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const AuthPage(),
+      home: const MyHomePage(
+        title: "To Do App",
+      ),
     );
   }
 }
