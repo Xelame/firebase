@@ -2,44 +2,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Sign up page
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _SignupPageState createState() => _SignupPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _register() async {
+  void _signUp() async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
 
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
 
       // Utilisateur enregistré avec succès
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        const SnackBar(
-          content: Text('The password provided is too weak.'),
-        );
-      } else if (e.code == 'email-already-in-use') {
-        const SnackBar(
-          content: Text('The account already exists for that email.'),
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.code.toString()),
+          ),
         );
       }
-    } catch (e) {
-      const SnackBar(
-        content: Text('Unknown error'),
-      );
     }
   }
 
@@ -49,7 +43,7 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('S\'inscrire'),
+        title: const Text('Sign up'),
       ),
       body: SafeArea(
         child: Padding(
@@ -69,14 +63,17 @@ class _SignupPageState extends State<SignupPage> {
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Mot de passe',
+                    labelText: 'Password',
                   ),
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
               ),
               spacer,
               ElevatedButton(
-                onPressed: _register,
-                child: const Text('S\'enregistrer'),
+                onPressed: _signUp,
+                child: const Text('Sign up'),
               ),
             ],
           ),
@@ -85,4 +82,3 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
-

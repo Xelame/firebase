@@ -1,3 +1,5 @@
+import 'package:firebase/pages/home_logged.dart';
+import 'package:firebase/pages/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,29 +18,21 @@ class _SignInPageState extends State<SignInPage> {
 
   void _signIn() async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
 
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context, userCredential.user);
+      if (context.mounted) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePageLogged()));
+      }
 
       // Utilisateur connecté avec succès
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        // ignore: use_build_context_synchronously
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('No user found for that email.'),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Wrong password provided for that user.'),
+          SnackBar(
+            content: Text(e.code.toString()),
           ),
         );
       }
@@ -51,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Se connecter'),
+        title: const Text('Sign in'),
       ),
       body: SafeArea(
         child: Padding(
@@ -71,15 +65,35 @@ class _SignInPageState extends State<SignInPage> {
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Mot de passe',
+                    labelText: 'Password',
                   ),
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
               ),
               spacer,
               ElevatedButton(
                 onPressed: _signIn,
-                child: const Text('Se connecter'),
+                child: const Text('Sign in'),
               ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("You aren't registered ?"),
+                  TextButton(
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpPage()),
+                      );
+                    },
+                    child: const Text('Sign up'),
+                  ),
+                ],
+              )
             ],
           ),
         ),
