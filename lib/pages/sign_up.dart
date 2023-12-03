@@ -28,9 +28,37 @@ class _SignUpPageState extends State<SignUpPage> {
       // Utilisateur enregistré avec succès
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('The password provided is too weak.'),
+            ),
+          );
+        } else if (e.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('The account already exists for that email.'),
+            ),
+          );
+        } else if (e.code == 'user-not-found') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('No user found for that email.'),
+            ),
+          );
+        } else if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Wrong password provided for that user.'),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(e.code.toString()),
+            content: Text(e.toString()),
           ),
         );
       }
