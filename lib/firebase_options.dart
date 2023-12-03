@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '138198515903',
     projectId: 'tp1-firebase-28924',
     authDomain: 'tp1-firebase-28924.firebaseapp.com',
+    databaseURL: 'https://tp1-firebase-28924-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'tp1-firebase-28924.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:138198515903:android:a4da3c9d03521bca26060a',
     messagingSenderId: '138198515903',
     projectId: 'tp1-firebase-28924',
+    databaseURL: 'https://tp1-firebase-28924-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'tp1-firebase-28924.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:138198515903:ios:77300db5737d597526060a',
     messagingSenderId: '138198515903',
     projectId: 'tp1-firebase-28924',
+    databaseURL: 'https://tp1-firebase-28924-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'tp1-firebase-28924.appspot.com',
     iosBundleId: 'com.example.firebase',
   );
@@ -74,6 +77,7 @@ class DefaultFirebaseOptions {
     appId: '1:138198515903:ios:25371168470a7bc926060a',
     messagingSenderId: '138198515903',
     projectId: 'tp1-firebase-28924',
+    databaseURL: 'https://tp1-firebase-28924-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'tp1-firebase-28924.appspot.com',
     iosBundleId: 'com.example.firebase.RunnerTests',
   );

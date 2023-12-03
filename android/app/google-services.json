@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "138198515903",
+    "firebase_url": "https://tp1-firebase-28924-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "tp1-firebase-28924",
     "storage_bucket": "tp1-firebase-28924.appspot.com"
   },
@@ -10,25 +11,6 @@
         "mobilesdk_app_id": "1:138198515903:android:a4da3c9d03521bca26060a",
         "android_client_info": {
           "package_name": "com.example.firebase"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBX2FafJOhDWuhpVlYnP5KCxfKsBbIhjZk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:138198515903:android:913e3b4feb2cc46226060a",
-        "android_client_info": {
-          "package_name": "com.example.tp_firebase"
         }
       },
       "oauth_client": [],
