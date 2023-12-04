@@ -21,7 +21,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   PlatformFile? _file;
   UploadTask? _task;
-  String _urlDownload = '';
 
   Future _selectFile() async {
     final result = await FilePicker.platform.pickFiles();
@@ -41,11 +40,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       _task = ref.putFile(file);
     });
 
-    await _task!.whenComplete(() async {
-      _urlDownload = await ref.getDownloadURL();
-    });
-
-    print('Download-Link: $_urlDownload');
+    await _task!.whenComplete(() async {});
 
     setState(() {
       _task = null;
